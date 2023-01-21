@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "963004586146",
+    "project_id": "ariam-handcraft",
+    "storage_bucket": "ariam-handcraft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963004586146:android:97e5ed27816cbbac6cdffb",
+        "android_client_info": {
+          "package_name": "com.abdullah.ariam.handcraft.ariam_handcraft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963004586146-bdgna8f8f5j8fn43riebqa8id895fgpt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfLIfad7bdIQ9MWREIY8ObMBERfn0LWC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963004586146-bdgna8f8f5j8fn43riebqa8id895fgpt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

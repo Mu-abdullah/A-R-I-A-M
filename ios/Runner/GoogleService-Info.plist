@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>963004586146-oahkupavce3l9d8tj98sl7lngn0l504g.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.963004586146-oahkupavce3l9d8tj98sl7lngn0l504g</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA8TsuxKNglMkg4xn-CnqKqx9I7J2W7Eho</string>
+	<key>GCM_SENDER_ID</key>
+	<string>963004586146</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.abdullah.ariam.handcraft.ariamHandcraft</string>
+	<key>PROJECT_ID</key>
+	<string>ariam-handcraft</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ariam-handcraft.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:963004586146:ios:aaea6eb1655e913e6cdffb</string>
+</dict>
+</plist>

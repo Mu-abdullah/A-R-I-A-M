@@ -1,4 +1,3 @@
-import 'package:ariam_handcraft/shared/component/strings.dart';
 import 'package:ariam_handcraft/shared/style/widgets/defualtText.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +7,7 @@ import '../../shared/component/component.dart';
 import '../../shared/component/routes_strings.dart';
 import '../../shared/cubit/add_products/add_data_cubit.dart';
 import '../../shared/cubit/add_products/add_data_state.dart';
-import '../../shared/helper/shared_preferences.dart';
 import '../../shared/style/colors.dart';
-import '../../shared/style/widgets/defultButton.dart';
 
 class AdminHome extends StatelessWidget {
   const AdminHome({Key? key}) : super(key: key);

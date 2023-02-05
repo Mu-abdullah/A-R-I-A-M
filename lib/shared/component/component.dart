@@ -1,13 +1,9 @@
-import 'package:ariam_handcraft/models/category_model.dart';
-import 'package:ariam_handcraft/models/prodcuts_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../style/colors.dart';
 import '../style/image_strings.dart';
 import '../style/widgets/border_container.dart';
 import '../style/widgets/defualtText.dart';
-import '../style/widgets/defultFormField.dart';
 
 Widget adminPanelCard(
   context,
@@ -16,7 +12,7 @@ Widget adminPanelCard(
 ) {
   return Container(
     height: height * .25,
-    width: width * .95,
+    width: width ,
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(25)),
         gradient: LinearGradient(
@@ -29,6 +25,8 @@ Widget adminPanelCard(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           borderContainer(
             widget: Image.asset(imageLogo),
@@ -37,7 +35,7 @@ Widget adminPanelCard(
             bottomRight: 25,
             topLeft: 25,
             borderColor: white,
-            width: width * .4,
+            width: width * .36,
             borderWidth: 3,
           ),
           SizedBox(
@@ -73,39 +71,10 @@ Widget adminPanelCard(
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    showBottomSheet(
-                        context: (context),
-                        builder: (context) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    defaultFormField(
-                                        controller: TextEditingController(),
-                                        validate: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Title must not be empty';
-                                          }
-                                          return null;
-                                        },
-                                        label: 'الجهة',
-                                        type: TextInputType.text,
-                                        prefix: Icons.title),
-                                  ],
-                                ),
-                              ),
-                            ));
-                  },
-                  icon: const Icon(Iconsax.edit4))
-            ],
+          SizedBox(
+            width: width * .02,
           ),
+          const Icon(Iconsax.edit4),
         ],
       ),
     ),

@@ -129,7 +129,7 @@ class ScreensCubit extends Cubit<ScreensState> {
 //////////////////////////Category
     List<ProductModel> prod = [];
     ProductModel? productModel;
-  void getData() async {
+  Future<void> getData() async {
     await FirebaseFirestore.instance.collection(productsKey).get().then((value) {
       List<ProductModel> newList = [];
       QuerySnapshot data = value;
@@ -147,10 +147,11 @@ class ScreensCubit extends Cubit<ScreensState> {
           isDiscount: element['isDiscount'],
           categoryId: element['categoryId'],
         );
+        print(element['description']);
         newList.add(productModel!);
       }
-      prod = newList.toList();
-      print(prod);
+      // prod = newList.toList();
+
 
     }).catchError((onError) {});
   }

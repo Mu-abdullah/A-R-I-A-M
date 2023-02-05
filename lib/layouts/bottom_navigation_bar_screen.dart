@@ -31,7 +31,7 @@ class BottomNavigationBarScreen extends StatelessWidget {
             child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-               cubit.getData();
+              cubit.getData();
             },
           ),
           appBar: AppBar(

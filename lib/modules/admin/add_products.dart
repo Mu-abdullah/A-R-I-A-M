@@ -108,7 +108,7 @@ class AddDataScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: width * .6,
+                            width: width * .4,
                             child: defaultFormField(
                               controller: productName,
                               type: TextInputType.text,
@@ -153,7 +153,7 @@ class AddDataScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: width * .5,
+                            width: width * .4,
                             child: defaultFormField(
                               controller: productPrice,
                               type: TextInputType.number,

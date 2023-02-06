@@ -83,10 +83,10 @@ class AdminSign extends StatelessWidget {
                       key: formKey,
                       child: Container(
                         width: width * .75,
-                        decoration: BoxDecoration(
+                        decoration:const BoxDecoration(
                           color: white,
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(25)),
+                               BorderRadius.all(Radius.circular(25)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -127,7 +127,7 @@ class AdminSign extends StatelessWidget {
                               ),
                               Center(
                                 child: state is Loading
-                                    ? CircularProgressIndicator(
+                                    ? const CircularProgressIndicator(
                                         color: fayroozy,
                                       )
                                     : defaultButton(

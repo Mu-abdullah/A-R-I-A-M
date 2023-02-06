@@ -29,41 +29,41 @@ class ProductModel {
     required this.categoryId,
   });
 
-  // factory ProductModel.fromFirestore(
-  //     DocumentSnapshot<Map<String, dynamic>> snapshot,
-  //     SnapshotOptions? options,
-  //     ) {
-  //   final data = snapshot.data();
-  //   return ProductModel(
-  //     name: data?['name'],
-  //     admin: data?['admin'],
-  //     adminID: data?['adminID'],
-  //     adminState: data?['adminState'],
-  //     img: data?['img'],
-  //     price: data?['price'],
-  //     description: data?['description'],
-  //     dayToDelivery: data?['dayToDelivery'],
-  //     discount: data?['discount'],
-  //     isDiscount: data?['isDiscount'],
-  //     docID: data?['docID'],
-  //     categoryId: data?['categoryId'],
-  //   );
-  // }
-   ProductModel.fromFirestore(Map<String, dynamic> json) {
-     name = json['name'] ?? '';
-     admin = json['admin'] ?? '';
-     adminID = json['adminID'] ?? '';
-     adminState = json['adminState'] ?? '';
-     img = json['img'] ?? '';
-     price = json['price'] ?? '';
-     description = json['description'] ?? '';
-     dayToDelivery = json['dayToDelivery'] ?? '';
-     discount = json['discount'] ?? '';
-     isDiscount = json['isDiscount'] ?? '';
-     docID = json['docID'] ?? '';
-     categoryId = json['categoryId'] ?? '';
-
+  factory ProductModel.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options,
+      ) {
+    final data = snapshot.data();
+    return ProductModel(
+      name: data?['name'],
+      admin: data?['admin'],
+      adminID: data?['adminID'],
+      adminState: data?['adminState'],
+      img: data?['img'],
+      price: data?['price'],
+      description: data?['description'],
+      dayToDelivery: data?['dayToDelivery'],
+      discount: data?['discount'],
+      isDiscount: data?['isDiscount'],
+      docID: data?['docID'],
+      categoryId: data?['categoryId'],
+    );
   }
+  //  ProductModel.fromFirestore(Map<String, dynamic> json) {
+  //    name = json['name'] ?? '';
+  //    admin = json['admin'] ?? '';
+  //    adminID = json['adminID'] ?? '';
+  //    adminState = json['adminState'] ?? '';
+  //    img = json['img'] ?? '';
+  //    price = json['price'] ?? '';
+  //    description = json['description'] ?? '';
+  //    dayToDelivery = json['dayToDelivery'] ?? '';
+  //    discount = json['discount'] ?? '';
+  //    isDiscount = json['isDiscount'] ?? '';
+  //    docID = json['docID'] ?? '';
+  //    categoryId = json['categoryId'] ?? '';
+  //
+  // }
 
   Map<String, dynamic> toFirestore() {
     return {

@@ -7,20 +7,22 @@ Widget appText({
   String fontFamily = "demi",
   FontWeight fontWeight = FontWeight.bold,
   TextOverflow overflow = TextOverflow.ellipsis,
-  int maxLine = 1 ,
+  int maxLine = 1,
   bool needLine = false,
+
 }) {
   return Text(
-
     text,
     maxLines: maxLine,
+    overflow: overflow,
+    softWrap: false,
     style: TextStyle(
       fontSize: size,
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
-      overflow: overflow,
-        decoration:needLine == true ? TextDecoration.lineThrough : TextDecoration.none
+      decoration:
+          needLine == true ? TextDecoration.lineThrough : TextDecoration.none,
     ),
   );
 }

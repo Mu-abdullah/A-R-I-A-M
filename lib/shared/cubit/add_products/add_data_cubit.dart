@@ -126,4 +126,11 @@ class AddDataCubit extends Cubit<AddDataState> {
       emit(SendDataError(onError.toString()));
     });
   }
+
+
+  final Stream<QuerySnapshot> dataStream =
+  FirebaseFirestore.instance.collection(productsKey).snapshots();
+
+
+
 }

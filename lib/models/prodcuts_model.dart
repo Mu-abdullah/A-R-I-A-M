@@ -10,6 +10,7 @@ class ProductModel {
   String? img;
   String? description;
   String? dayToDelivery;
+  String? imagePath;
   dynamic price;
   dynamic discount;
   bool? isDiscount;
@@ -25,6 +26,7 @@ class ProductModel {
     required this.description,
     required this.discount,
     required this.dayToDelivery,
+    required this.imagePath,
     required this.isDiscount,
     required this.categoryId,
   });
@@ -39,6 +41,7 @@ class ProductModel {
       admin: data?['admin'],
       adminID: data?['adminID'],
       adminState: data?['adminState'],
+      imagePath: data?['imagePath'],
       img: data?['img'],
       price: data?['price'],
       description: data?['description'],
@@ -74,6 +77,7 @@ class ProductModel {
       if (img != null) "img": img,
       if (price != null) "price": price,
       if (description != null) "description": description,
+      if (imagePath != null) "imagePath": imagePath,
       if (dayToDelivery != null) "dayToDelivery": dayToDelivery,
       if (discount != null) "discount": discount,
       if (isDiscount != null) "isDiscount": isDiscount,

@@ -1,5 +1,5 @@
-import 'package:ariam_handcraft/models/prodcuts_model.dart';
 import 'package:ariam_handcraft/shared/component/strings.dart';
+import 'package:ariam_handcraft/shared/style/image_strings.dart';
 import 'package:ariam_handcraft/shared/style/widgets/defualtText.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,57 +60,69 @@ class AdminHome extends StatelessWidget {
               backgroundColor: fayroozy,
               elevation: 10,
             ),
-            body: Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: StreamBuilder<QuerySnapshot>(
-                      stream: cubit.dataStream,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError) {
-                          return const Text('Something went wrong');
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              LinearProgressIndicator(
-                                color: fayroozy,
-                              ),
-                              Text("Loading..."),
-                            ],
-                          );
-                        }
-                        return ListView(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: snapshot.data!.docs
-                              .map((DocumentSnapshot document) {
-                                Map<String, dynamic> data =
-                                    document.data()! as Map<String, dynamic>;
-                                return adminPanelCard(
-                                  context,
-                                  height,
-                                  width,
-                                  image: data["img"],
-                                  productsName: data["name"],
-                                  productsPrice: data["price"],
-                                  productsDescription: data["description"],
-                                  daysToDelivery: data["dayToDelivery"],
-                                  discount: data["discount"],
-                                  category: data["categoryId"],
-                                );
-                              })
-                              .toList()
-                              .cast(),
-                        );
-                      },
-                    )
-                    // adminPanelCard(context, height, width,),
-                    )
-              ],
+            body: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: cubit.dataStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                          child: Column(
+                        children: [
+                          Image.asset(imageLogo, height: height * .6),
+                          const Text('Something went wrong'),
+                        ],
+                      ));
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            CircularProgressIndicator(
+                              color: fayroozy,
+                            ),
+                            Text("Loading..."),
+                          ],
+                        ),
+                      );
+                    }
+                    return ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: snapshot.data!.docs
+                          .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return adminPanelCard(
+                              context,
+                              height,
+                              width,
+                              image: data["img"],
+                              productsName: data["name"],
+                              productsPrice: data["price"],
+                              productsDescription: data["description"],
+                              daysToDelivery: data["dayToDelivery"],
+                              discount: data["discount"],
+                              category: data["categoryId"],
+                              delete: () async {
+                                cubit.deleteImage(
+                                    pathImageFromFireStore: data['imagePath']);
+                                await products.doc(data['docID']).delete();
+                              },
+                              edite: () {
+                                // print( cubit.tester);
+                              },
+                            );
+                          })
+                          .toList()
+                          .cast(),
+                    );
+                  },
+                ),
+              ),
             ));
       },
     );

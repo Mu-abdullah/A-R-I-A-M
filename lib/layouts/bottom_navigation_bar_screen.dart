@@ -29,11 +29,6 @@ class BottomNavigationBarScreen extends StatelessWidget {
         ScreensCubit cubit = ScreensCubit.get(context);
         return SafeArea(
             child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              cubit.getData();
-            },
-          ),
           appBar: AppBar(
             title: Row(
               children: [

@@ -4,6 +4,7 @@ import 'package:ariam_handcraft/shared/style/widgets/snack_bar.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,6 +58,7 @@ class AddDataCubit extends Cubit<AddDataState> {
   }
 
 ////////////////////AddData////////////////////
+  String? imagePath;
   String? imageUrl;
   void uploadPhoto(context, categoryId) {
     emit(UploadProductImageLoading());
@@ -68,8 +70,11 @@ class AddDataCubit extends Cubit<AddDataState> {
         .putFile(image!)
         .then((p0) {
       p0.ref.getDownloadURL().then((value) {
-        print(value);
         imageUrl = value;
+
+        imagePath = p0.ref.fullPath;
+        print(p0.ref.fullPath.toString());
+
         snackBar(context, contentText: "Done", seconds: 1);
         emit(UploadProductImageSuccess());
       }).catchError((onError) {
@@ -78,6 +83,12 @@ class AddDataCubit extends Cubit<AddDataState> {
     }).catchError((onError) {
       emit(UploadProductImageError(onError.toString()));
     });
+  }
+
+  void deleteImage({required String pathImageFromFireStore})async{
+    final storageRef = FirebaseStorage.instance.ref();
+    final desertRef = storageRef.child(pathImageFromFireStore);
+    await desertRef.delete();
   }
 
   var fs = FirebaseFirestore.instance;
@@ -94,18 +105,13 @@ class AddDataCubit extends Cubit<AddDataState> {
     required String discount,
     required bool isDiscount,
     required String categoryId,
-    String? id,
   }) async {
-    var docId = FirebaseFirestore.instance
-        .collection(adminKey)
-        .doc(productsKey)
-        .id;
-    var userId = FirebaseAuth.instance.currentUser?.uid;
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
 
     final productsData = ProductModel(
         name: name,
         admin: admin,
-        adminID: userId,
+        adminID: userId!,
         adminState: adminState,
         img: img,
         price: price,
@@ -114,19 +120,21 @@ class AddDataCubit extends Cubit<AddDataState> {
         discount: discount,
         isDiscount: isDiscount,
         categoryId: categoryId,
-        docID: docId);
+        docID: "docId", imagePath: imagePath);
     emit(SendDataLoading());
     await fs
         .collection(productsKey)
         .add(productsData.toFirestore())
         .then((value) {
+          CollectionReference cc = fs.collection(productsKey);
+          cc.doc(value.id).update({"docID":value.id});
+
       Navigator.pushReplacementNamed(context, adminHome);
       emit(SendDataSuccess());
     }).catchError((onError) {
       emit(SendDataError(onError.toString()));
     });
   }
-
 
   final Stream<QuerySnapshot> dataStream =
   FirebaseFirestore.instance.collection(productsKey).snapshots();

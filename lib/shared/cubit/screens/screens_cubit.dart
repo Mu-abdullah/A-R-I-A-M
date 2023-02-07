@@ -104,55 +104,15 @@ class ScreensCubit extends Cubit<ScreensState> {
   void pressedFavourite() {
     pressed = !pressed;
     favIcon = pressed
-        ? Icon(
-            Iconsax.heart5,
-            color: red,
-          )
-        : Icon(
-            Iconsax.heart4,
-            color: white,
-          );
+        ? const Icon(
+      Iconsax.heart5,
+      color: red,
+    )
+        : const Icon(
+      Iconsax.heart4,
+      color: white,
+    );
     emit(IsFavourite());
   }
-  // List<Map<String, ProductModel>> postsList = [];
-  // ProductModel? productModel ;
-  // void getData(String id){
-  //   emit(Loading());
-  //   FirebaseFirestore.instance.collection(productsKey).get().then((value){
-  //     productModel = ProductModel.fromFirestore(value.data()!);
-  //   });
-  //
-  //
-  //   emit(Success());
-  // }
 
-//////////////////////////Category
-    List<ProductModel> prod = [];
-    ProductModel? productModel;
-  Future<void> getData() async {
-    await FirebaseFirestore.instance.collection(productsKey).get().then((value) {
-      List<ProductModel> newList = [];
-      QuerySnapshot data = value;
-      for (var element in data.docs) {
-        productModel = ProductModel(
-          name: element['name'],
-          admin: element['admin'],
-          adminID: element['adminID'],
-          adminState: element['adminState'],
-          img: element['img'],
-          price: element['price'],
-          description: element['description'],
-          discount: element['discount'],
-          dayToDelivery: element['dayToDelivery'],
-          isDiscount: element['isDiscount'],
-          categoryId: element['categoryId'],
-        );
-        print(element['description']);
-        newList.add(productModel!);
-      }
-      // prod = newList.toList();
-
-
-    }).catchError((onError) {});
-  }
 }

@@ -16,137 +16,110 @@ Widget adminPanelCard(
   required String daysToDelivery,
   required String discount,
   required String category,
+      required final Function()? edite,
+      required final Function()? delete,
 }) {
-  return Column(
-    children: [
-      Container(
-        height: height * .25,
-        width: width,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            gradient: LinearGradient(
-              colors: [fayroozy, blueBlack],
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              stops: [0.2, 0.6],
-              tileMode: TileMode.repeated,
-            )),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Row(
-            children: [
-              Expanded(
-
-                child: Container(
-
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                      image: NetworkImage(image),
-                      fit: BoxFit.cover,
-                    ),
-                    border: Border.all(
-                      color: white,
-                      width: 1,
+  return Padding(
+    padding: const EdgeInsets.all(4),
+    child: Container(
+      height: height * .35,
+      width: width,
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          gradient: LinearGradient(
+            colors: [fayroozy, blueBlack],
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            stops: [0.2, 0.6],
+            tileMode: TileMode.repeated,
+          )),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              children: [
+                appText(
+                  text: "Name: $productsName",
+                  color: white,
+                  size: 21,
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap:edite,
+                  child: const Icon(Iconsax.edit4, color: white),
+                ),
+                SizedBox(width: width*.03,),
+                GestureDetector(
+                  onTap: delete,
+                  child: const Icon(Iconsax.note_remove4, color: white),
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: height * .25,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: NetworkImage(image),
+                        fit: BoxFit.cover,
+                      ),
+                      border: Border.all(
+                        color: white,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
-              ),
-
-              Expanded(
-                flex: 2,
-                child: Column(
-                  children: [
-                    appText(
-                      text: "Description: $productsDescription",
-                      color: white,
-                    ),
-                  ],
+                SizedBox(
+                  width: width * .02,
                 ),
-              ),
-            ],
-          ),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      appText(
+                        text: "Description: $productsDescription",
+                        color: white,
+                        maxLine: 3,
+                        size: 18,
+                      ),
+                      appText(
+                        text: "Price: $productsPrice EGP",
+                        color: white,
+                        size: 18,
+                      ),
+                      appText(
+                        text: "Discount: $discount %",
+                        color: white,
+                        size: 18,
+                      ),
+                      appText(
+                        text: "Day: $daysToDelivery days",
+                        color: white,
+                        size: 18,
+                      ),
+                      appText(
+                        text: "Category: $category",
+                        color: white,
+                        size: 18,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
-      SizedBox(
-        height: height * .01,
-      ),
-    ],
+    ),
   );
 }
-// Column(
-// children: [
-// Container(
-// height: height * .25,
-// width: width,
-// decoration:const BoxDecoration(
-// borderRadius:  BorderRadius.all(Radius.circular(10)),
-// gradient: LinearGradient(
-// colors: [fayroozy, gery],
-// begin: Alignment.bottomLeft,
-// end: Alignment.topRight,
-// stops:  [0.2, 0.6],
-// tileMode: TileMode.repeated,
-// )),
-// child: Padding(
-// padding: const EdgeInsets.all(8.0),
-// child: Row(
-// crossAxisAlignment: CrossAxisAlignment.start,
-// mainAxisAlignment: MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// width: width * .36,
-// decoration: BoxDecoration(
-// image: DecorationImage(image: NetworkImage(image),fit: BoxFit.cover),
-// borderRadius: BorderRadius.circular(10),
-// border: Border.all(color: white,width:3 ),
-// ),
-// ),
-// SizedBox(
-// width: width * .02,
-// ),
-// Column(
-// crossAxisAlignment: CrossAxisAlignment.start,
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// appText(
-// text:  "Name: $productsName",
-// ),
-// appText(
-// text: "Price: $productsPrice LE",
-// size: 18,
-// ),
-// Wrap(
-// children: [
-// appText(
-// text: "Description: $productsDescription",
-// size: 18,
-// maxLine: 20,
-// ),
-// ],
-// ),
-// appText(
-// text: "Day: $daysToDelivery days",
-// size: 18,
-// ),
-// appText(
-// text: "Discount: $discount %",
-// size: 18,
-// ),
-// appText(
-// text: "Category: $category",
-// size: 18,
-// ),
-// ],
-// ),
-// SizedBox(
-// width: width * .02,
-// ),
-// const Icon(Iconsax.edit4),
-// ],
-// ),
-// ),
-// ),
-// SizedBox(height: height*.01,)
-// ],
-// )

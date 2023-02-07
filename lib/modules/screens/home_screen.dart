@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         appText(
                           text:
-                              "Hello $userName\n\nWhat you are\nlooking for today?",
+                          "Hello $userName\n\nWhat you are\nlooking for today?",
                           maxLine: 5,
                           color: fayroozy,
                         ),
@@ -99,8 +99,8 @@ class HomeScreen extends StatelessWidget {
               itemBuilder: (context, index) =>
                   categoryCard(height, width, model: testCategory[index]),
               separatorBuilder: (context, index) => SizedBox(
-                    width: width * .02,
-                  ),
+                width: width * .02,
+              ),
               itemCount: testCategory.length),
         ),
       ],
@@ -123,8 +123,8 @@ class HomeScreen extends StatelessWidget {
                   height, width,
                   model: testProducts[index]),
               separatorBuilder: (context, index) => SizedBox(
-                    width: width * .02,
-                  ),
+                width: width * .02,
+              ),
               itemCount: testProducts.length),
         ),
       ],

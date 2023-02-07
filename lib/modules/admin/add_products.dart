@@ -1,4 +1,5 @@
 import 'package:ariam_handcraft/shared/component/strings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -7,6 +8,7 @@ import '../../shared/cubit/add_products/add_data_cubit.dart';
 import '../../shared/cubit/add_products/add_data_state.dart';
 import '../../shared/style/colors.dart';
 import '../../shared/style/image_strings.dart';
+import '../../shared/style/widgets/border_container.dart';
 import '../../shared/style/widgets/defualtText.dart';
 import '../../shared/style/widgets/defultButton.dart';
 import '../../shared/style/widgets/defultFormField.dart';
@@ -21,7 +23,7 @@ class AddDataScreen extends StatelessWidget {
   TextEditingController dayToDelivery = TextEditingController();
   TextEditingController productCategory = TextEditingController();
   TextEditingController productDescription = TextEditingController();
-
+  String? categoryValue;
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,7 @@ class AddDataScreen extends StatelessWidget {
                                     child: CircleAvatar(
                                       backgroundColor: blueBlack,
                                       maxRadius: height * .04,
-                                      child: Icon(
+                                      child: const Icon(
                                         Iconsax.gallery_add,
                                         size: 40,
                                         color: white,
@@ -87,7 +89,6 @@ class AddDataScreen extends StatelessWidget {
                                   )),
                             ],
                           )),
-
                       //////////HandelDataToAdd////////////
                       SizedBox(
                         height: height * .01,
@@ -95,7 +96,7 @@ class AddDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: state is UploadProductImageLoading
-                            ? LinearProgressIndicator(
+                            ? const LinearProgressIndicator(
                                 color: fayroozy,
                               )
                             : null,
@@ -107,8 +108,8 @@ class AddDataScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: width * .4,
+                          Expanded(
+                            flex: 2,
                             child: defaultFormField(
                               controller: productName,
                               type: TextInputType.text,
@@ -123,24 +124,34 @@ class AddDataScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          // appText(
-                          //   text: "Category",
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: DropdownButton(
-                              hint: appText(text: "Category", color: fayroozy),
-                              items: cubit.dropdownItems,
-                              value: cubit.selectedValue,
-                              onChanged: (String? value) {
-                                cubit.changeValue(value!);
-                                print(value);
-                              },
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(25)),
-                              dropdownColor: gery,
-                              underline: Text(""),
-                              elevation: 10,
+                          SizedBox(width: width*.01,),
+                          Expanded(
+                            flex: 1,
+                            child: borderContainer(
+                              containerColor: gery,
+                              bottomLeft: 15,
+                              topRight: 15,
+                              bottomRight: 15,
+                              topLeft: 15,
+                              widget: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: DropdownButton(
+                                  isExpanded: true,
+                                  hint: appText(text: "Category", color: fayroozy,size: 18,),
+                                  items: cubit.dropdownItems,
+                                  value: cubit.selectedValue,
+                                  onChanged: (String? value) {
+                                    cubit.changeValue(value!);
+                                    categoryValue = value;
+                                    print(value);
+                                  },
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(25)),
+                                  dropdownColor: gery,
+                                  underline: const Text(""),
+                                  elevation: 10,
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -152,8 +163,8 @@ class AddDataScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: width * .4,
+                          Expanded(
+                            flex: 2,
                             child: defaultFormField(
                               controller: productPrice,
                               type: TextInputType.number,
@@ -168,18 +179,28 @@ class AddDataScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          appText(
-                            text: "discount ?",
+                          SizedBox(width: width*.03,),
+                          Expanded(
+                            flex: 1,
+                            child: appText(
+                              text: "discount ?",
+                              size: 18,
+                            ),
                           ),
-                          NeumorphicSwitch(
-                            style: NeumorphicSwitchStyle(
-                                activeThumbColor: white,
-                                activeTrackColor: fayroozy,
-                                inactiveTrackColor: red),
-                            value: cubit.isDisc,
-                            onChanged: (bool value) {
-                              cubit.disc();
-                            },
+                          Expanded(
+                            flex: 1,
+                            child: NeumorphicSwitch(
+                              style: const NeumorphicSwitchStyle(
+                                lightSource: LightSource(25, 10),
+                                  activeThumbColor: white,
+                                  inactiveThumbColor: blueBlack,
+                                  activeTrackColor: fayroozy,
+                                  inactiveTrackColor: red),
+                              value: cubit.isDisc,
+                              onChanged: (bool value) {
+                                cubit.disc();
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -251,7 +272,7 @@ class AddDataScreen extends StatelessWidget {
                                 child: state is UploadProductImageSuccess?
                                     ? Center(
                                         child: state is SendDataLoading
-                                            ? CircularProgressIndicator(
+                                            ? const CircularProgressIndicator(
                                                 color: fayroozy,
                                               )
                                             : defaultButton(
@@ -259,50 +280,48 @@ class AddDataScreen extends StatelessWidget {
                                                 function: () {
                                                   if (formKey.currentState!
                                                       .validate()) {
-                                                    cubit.addProductData(context,
-                                                        img: imageUrl!,
-                                                        price: productPrice
-                                                            .text,
-                                                        isDiscount: cubit
-                                                            .isDisc,
-                                                        discount: cubit
-                                                                    .isDisc ==
-                                                                false
-                                                            ? "0"
-                                                            : productDiscount
-                                                                .text,
-                                                        description:
-                                                            productDescription
-                                                                .text,
-                                                        categoryId:
-                                                            cubit.selectedValue ==
-                                                                    null
-                                                                ? "Crochet"
-                                                                : "Crochet",
-                                                        name: productName.text,
-                                                        dayToDelivery:
-                                                            dayToDelivery.text,
-                                                        admin: userName!,
+                                                    cubit.addProductData(
+                                                      context,
+                                                      img: imageUrl!,
+                                                      price: productPrice.text,
+                                                      isDiscount: cubit.isDisc,
+                                                      discount:
+                                                          cubit.isDisc == false
+                                                              ? "0"
+                                                              : productDiscount
+                                                                  .text,
+                                                      description:
+                                                          productDescription
+                                                              .text,
+                                                      categoryId: cubit
+                                                                  .selectedValue ==
+                                                              null
+                                                          ? "Crochet"
+                                                          : cubit
+                                                              .selectedValue! /*categoryValue!*/,
+                                                      name: productName.text,
+                                                      dayToDelivery:
+                                                          dayToDelivery.text,
+                                                      admin: userName!,
                                                       adminState: "admin",
-
                                                     );
                                                   }
                                                 },
                                               ),
                                       )
                                     : Center(
-                                        child:
-                                            state is UploadProductImageLoading
-                                                ? CircularProgressIndicator(
-                                                    color: fayroozy,
-                                                  )
-                                                : defaultButton(
-                                                    text: "upload image",
-                                                    function: () {
-                                                      cubit.uploadPhoto(context,
-                                                          cubit.selectedValue!);
-                                                    },
-                                                  ),
+                                        child: state
+                                                is UploadProductImageLoading
+                                            ? const CircularProgressIndicator(
+                                                color: fayroozy,
+                                              )
+                                            : defaultButton(
+                                                text: "upload image",
+                                                function: () {
+                                                  cubit.uploadPhoto(context,
+                                                      cubit.selectedValue!);
+                                                },
+                                              ),
                                       ),
                               ),
                       )

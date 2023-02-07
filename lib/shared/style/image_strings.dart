@@ -1,6 +1,7 @@
 
 
 String imageLogo = "assets/images/logo.png";
+String noData = "assets/images/nodata.gif";
 String imageAcc = "assets/images/accessories.png";
 String imageBack = "assets/images/back.png";
 String imagePlanner = "assets/images/planner.png";

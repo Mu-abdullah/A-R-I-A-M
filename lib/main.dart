@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generate,
       theme: lightTheme,
-      initialRoute: initialRoute,
+      initialRoute: adminHome,
     );
   }
 }

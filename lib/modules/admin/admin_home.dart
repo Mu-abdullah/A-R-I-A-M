@@ -89,37 +89,56 @@ class AdminHome extends StatelessWidget {
                         ),
                       );
                     }
-                    return ListView(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      children: snapshot.data!.docs
-                          .map((DocumentSnapshot document) {
-                            Map<String, dynamic> data =
-                                document.data()! as Map<String, dynamic>;
-                            return adminPanelCard(
-                              context,
-                              height,
-                              width,
-                              image: data["img"],
-                              productsName: data["name"],
-                              productsPrice: data["price"],
-                              productsDescription: data["description"],
-                              daysToDelivery: data["dayToDelivery"],
-                              discount: data["discount"],
-                              category: data["categoryId"],
-                              delete: () async {
-                                cubit.deleteImage(
-                                    pathImageFromFireStore: data['imagePath']);
-                                await products.doc(data['docID']).delete();
-                              },
-                              edite: () {
-                                // print( cubit.tester);
-                              },
-                            );
-                          })
-                          .toList()
-                          .cast(),
-                    );
+                    return snapshot.data!.docs.isEmpty
+                        ? Center(
+                            child: Column(
+                              children: [
+                                Image(
+                                  image: AssetImage(noData),
+                                  colorBlendMode: BlendMode.modulate,
+                                  height: height * .6,
+                                ),
+                                appText(
+                                  text: 'No Data',
+                                  size: 28,
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: snapshot.data!.docs
+                                .map((DocumentSnapshot document) {
+                                  Map<String, dynamic> data =
+                                      document.data()! as Map<String, dynamic>;
+                                  return adminPanelCard(
+                                    context,
+                                    height,
+                                    width,
+                                    image: data["img"],
+                                    productsName: data["name"],
+                                    productsPrice: data["price"],
+                                    productsDescription: data["description"],
+                                    daysToDelivery: data["dayToDelivery"],
+                                    discount: data["discount"],
+                                    category: data["categoryId"],
+                                    delete: () async {
+                                      cubit.deleteImage(
+                                          pathImageFromFireStore:
+                                              data['imagePath']);
+                                      await products
+                                          .doc(data['docID'])
+                                          .delete();
+                                    },
+                                    edite: () {
+                                      // print( cubit.tester);
+                                    },
+                                  );
+                                })
+                                .toList()
+                                .cast(),
+                          );
                   },
                 ),
               ),
